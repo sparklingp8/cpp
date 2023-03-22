@@ -15,6 +15,4 @@ int main(){
    s2->name="ccce";
    cout<<s1.name<<s1.roll<<&s1<<&s2<<endl;
 
-
-
 }
