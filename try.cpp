@@ -12,7 +12,7 @@ int main(){
    s1.roll=12;   
    s1.name="what hmmm";
    cout<<s1.name<<s1.roll<<&s1<<&s2<<endl;
-   s2->name="ooo";
+   s2->name="ooo okkk";
    cout<<s1.name<<s1.roll<<&s1<<&s2<<endl;
 
 }
