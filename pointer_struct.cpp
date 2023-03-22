@@ -12,7 +12,7 @@ int main(){
    s1.roll=12;   
    s1.name="bbbe";
    cout<<s1.name<<s1.roll<<&s1<<&s2<<endl;
-   s2->name="ccce";
+   s2->name="ccce"; //impoertant
    cout<<s1.name<<s1.roll<<&s1<<&s2<<endl;
 
 }
