@@ -11,9 +11,9 @@ int main(){
    students s1,*s2;
    s2=&s1;
    s1.roll=12;   
-   s1.name="hmmm";
+   s1.name="check";
    cout<<s1.name<<s1.roll<<&s1<<&s2<<endl;
-   s2->name="ooo"; //impoertant
+   s2->name="check 2"; //impoertant
    cout<<s1.name<<s1.roll<<&s1<<&s2<<endl;
 
 }
