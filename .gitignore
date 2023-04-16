@@ -1,6 +1,3 @@
-try.cpp
-try
-.vscode
 # Ignore files with extension `.exe` 
-*.exe
-
+*
+!*.cpp
