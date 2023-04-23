@@ -1,3 +1,6 @@
 # Ignore files with extension `.exe` 
-*
-!*.cpp
+.vscode
+basic/practice
+basic/stack
+
+
