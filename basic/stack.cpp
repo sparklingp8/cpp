@@ -1,83 +1,130 @@
-#include<iostream>
-using namespace std;
+#include <iostream>
 
+using namespace std;
 #define MAX 10
 
-
-struct stck{
+struct stcktmplt
+{
+    int slot[MAX];
     int top;
-    int items[MAX];
 };
-typedef struct stck st;
-
-void createEmptyStack(st *s) {
-  s->top = -1;
+void createEmptyStack(stcktmplt *s)
+{
+    s->top = -1;
+}
+int isEmpty(stcktmplt *s)
+{
+    if (s->top == -1)
+    {
+        cout << "\n-----------------------------";
+        cout << "\nStack is empty";
+        cout << "\n-----------------------------";
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+int isFull(stcktmplt *s)
+{
+    if (s->top == MAX - 1)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
-// Check if the stack is full
-int isfull(st *s) {
-  if (s->top == MAX - 1)
-    return 1;
-  else
-    return 0;
+void peek(stcktmplt *s)
+{
+    if (!isEmpty(s))
+    {
+        cout << "\n-----------------------------";
+        cout << "\nTop element is " << s->slot[s->top];
+        cout << "\n-----------------------------";
+    }
+}
+void push(stcktmplt *s, int elm)
+{
+
+    s->top = s->top + 1;
+    s->slot[s->top] = elm;
+    cout << "\n-----------------------------";
+    cout << "\nElement " << elm << " is pushed";
+    cout << "\n-----------------------------";
+}
+void pop(stcktmplt *s)
+{
+    if (!isEmpty(s))
+    {
+        cout << "\n-----------------------------";
+        cout << "\nElement " << s->slot[s->top] << " is poped out";
+        cout << "\n-----------------------------";
+        s->top = s->top - 1;
+    }
 }
 
-// Check if the stack is empty
-int isempty(st *s) {
-  if (s->top == -1)
-    return 1;
-  else
-    return 0;
+void seeAll(stcktmplt *s)
+{
+    if (!isEmpty(s))
+    {
+        cout << "\n-----------------------------";
+        cout << "\nStack elements are: \n";
+        for (int i = 0; i <= s->top; i++)
+        {
+            cout << "> " << s->slot[i] << endl;
+        }
+        cout << "\n-----------------------------";
+    }
 }
+int main()
+{
+    int choice = 0, elem;
+    stcktmplt *stck1 = (stcktmplt *)malloc(sizeof(stcktmplt));
+    createEmptyStack(stck1);
 
-// Add elements into stack
-void push(st *s, int newitem) {
-  if (isfull(s)) {
-    cout << "STACK FULL";
-  } else {
-    s->top++;
-    s->items[s->top] = newitem;
-  }
-  
-}
-// pop elements into stack
-void pop(st *s) {
-  if (isempty(s)) {
-    cout << "STACK is Empty";
-  } else {
-    cout << "Poped element is" << s->items[s->top];
-    s->top--;    
-  }
-  
-}
+    while (choice != 7)
+    {
+        cout << "\n..............................";
+        cout << "\n1.peek\n2.push\n3.pop\n4.seeAll\n5.quit";
+        cout << "\n\nEnter your choice: ";
 
+        cin >> choice;
+        switch (choice)
+        {
+        case 1:
+            peek(stck1);
+            break;
+        case 2:
+            if (isFull(stck1))
+            {
+                cout << "\nStack OverFlow will happen sorry..........";
+            }
+            else
+            {
+                cout << "\nEnter element to be pushed: ";
+                cin >> elem;
+                push(stck1, elem);
+            }
 
-
-
-// Print elements of stack
-void printStack(st *s) {
-  printf("Stack: ");
-  for (int i = 0; i < 4; i++) {
-    cout << s->items[i] << " ";
-  }
-  cout << endl;
-}
-int main(){
-    cout<<"hi";
-    int ch;
-    st *s = (st *)malloc(sizeof(st));
-    createEmptyStack(s);
-    push(s, 1);
-    push(s, 2);
-    push(s, 3);
-    push(s, 4);
-
-    printStack(s);
-
-    pop(s);
-
-    cout << "\nAfter popping out\n";
-    printStack(s);
-
-    return 0;
+            break;
+        case 3:
+            pop(stck1);
+            break;
+        case 4:
+            seeAll(stck1);
+            break;
+        case 5:
+            cout << "\n-----------------------------";
+            cout << "\nBye...........";
+            cout << "\n-----------------------------";
+            choice = 7;
+            break;
+        default:
+            cout << "Enter correct choice";
+        }
+    }
 }
