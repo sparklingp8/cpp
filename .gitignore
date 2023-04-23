@@ -1,6 +1,8 @@
 # Ignore files with extension `.exe` 
 .vscode
 basic/practice
+basic/practice.cpp
 basic/stack
+basic/queue
 
 
