@@ -12,8 +12,8 @@ struct circQtmplt
 
 void createCq(circQtmplt *cq)
 {
-    cq->front = 0;
-    cq->rare = 0;
+    cq->front = -1;
+    cq->rare = -1;
 }
 
 bool isFull(circQtmplt *cq)
@@ -45,12 +45,13 @@ bool isEmpty(circQtmplt *cq)
         return false;
     }
 }
+
 void peek(circQtmplt *cq)
 {
     if (!isEmpty(cq))
     {
         cout << "\n----------------------------------------\n";
-        cout << cq->arr[cq->rare] << " is the first element in Queue";
+        cout << cq->arr[cq->front] << " is the first element in Queue";
         cout << "\n----------------------------------------";
     }
 }
@@ -77,7 +78,7 @@ void deque(circQtmplt *cq)
 {
     if (!isEmpty(cq))
     {
-        if ((cq->front + 1) % SIZE == cq->rare)
+        if (cq->front == cq->rare)
         {
             cout << "\n----------------------------------------\n";
             cout << cq->arr[cq->front] << " is last element of Queue";
@@ -93,14 +94,18 @@ void deque(circQtmplt *cq)
         }
     }
 }
+
 void seeAll(circQtmplt *cq)
 {
     cout << "\n----------------------------------------\n";
     cout << "\nQueue elements are:\n";
-    for (int i = cq->front; i != (cq->rare + 1) % SIZE; i++)
+    for (int i = cq->front; i != (cq->rare);)
     {
+
         cout << cq->arr[i] << endl;
+        i = (i + 1) % SIZE; // IMPORTANT
     }
+    cout << cq->arr[cq->rare] << endl; // IMPORTATNT
     cout << "\n----------------------------------------\n";
 }
 
@@ -108,14 +113,16 @@ int main()
 {
     circQtmplt *cq1 = (circQtmplt *)malloc(sizeof(circQtmplt));
     createCq(cq1);
+
     int choice = 0, elem;
+
     while (choice != 5)
     {
-        cout << "\n\n..........................................";
-
+        cout << "\n\n.........................................." ;
         cout << "\n1.EnQueue\n2.DeQueue\n3.peek\n4.seeAll\n5.quit";
         cout << "\nEnter your choice: ";
         cin >> choice;
+        
         switch (choice)
         {
         case 1:
