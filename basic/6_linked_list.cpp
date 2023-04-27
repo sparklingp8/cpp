@@ -7,13 +7,33 @@ struct node
     struct node *next;
 };
 
+int listSize(node *h)
+{
+    node *temp = h;
+    int count = 0;
+    while (temp != NULL)
+    {
+        count++;
+        temp = temp->next;
+    }
+    return count;
+}
+
+struct node *createNode(int elem)
+{
+    struct node *newNode = (struct node *)malloc(sizeof(node));
+    newNode->next = NULL;
+    newNode->data = elem;
+    return newNode;
+}
+
 void seeList(struct node *h)
 {
 
     if (h == NULL)
     {
         cout << "\n-----------------------------------";
-        cout << "\nEmpty List";
+        cout << "\nList is empty";
         cout << "\n-----------------------------------";
         return;
     }
@@ -23,7 +43,6 @@ void seeList(struct node *h)
         cout << "\nList elemnts are: \n"
              << h->data;
         cout << "\n-----------------------------------";
-        cout << "\nList elemnts are: ";
     }
     else
     {
@@ -40,12 +59,27 @@ void seeList(struct node *h)
     }
 }
 
-struct node *createNode(int elem)
+struct node *addAtEnd(struct node *h, int elm)
 {
-    struct node *newNode = (struct node *)malloc(sizeof(node));
-    newNode->next = NULL;
-    newNode->data = elem;
-    return newNode;
+    struct node *temp = h;
+    if (h == NULL)
+    {
+        h = createNode(elm);
+    }
+    else
+    {
+
+        while (temp->next != NULL)
+        {
+            temp = temp->next;
+        }
+
+        temp->next = createNode(elm);
+    }
+    cout << "\n-----------------------------------\n";
+    cout << elm << " added to list";
+    cout << "\n-----------------------------------";
+    return h;
 }
 
 struct node *addAtBeginning(struct node *h, int elem)
@@ -70,37 +104,75 @@ struct node *addAtBeginning(struct node *h, int elem)
     }
 }
 
-struct node *addElemAtEnd(struct node *h, int elm)
+void delAtend(node *h, node **ah) // double pointer be carefull
 {
-    struct node *temp = h;
     if (h == NULL)
     {
-        h = createNode(elm);
+        cout << "\n-----------------------------------";
+        cout << "\nEmpty list can't delete";
+        cout << "\n-----------------------------------";
+    }
+    else if (h->next == NULL)
+    {
+        cout << "\n-----------------------------------";
+        cout << "\nDeleted last elemnt of list: " << h->data;
+        cout << "\n-----------------------------------";
+        *ah = NULL;        
     }
     else
     {
-
-        while (temp->next != NULL)
+        node *temp1, *temp2;
+        temp1 = h;
+        while (temp1->next != NULL)
         {
-            temp = temp->next;
+            temp2 = temp1;
+            temp1 = temp1->next;
         }
-
-        temp->next = createNode(elm);
+        cout << "\n-----------------------------------\n";
+        cout << temp1->data << " is deleted from the list";
+        cout << "\n-----------------------------------";
+        temp2->next = NULL;
     }
-    return h;
+}
+
+void delAtBeginnig(node *h, node **ah)
+{
+    if (h == NULL)
+    {
+        cout << "\n-----------------------------------";
+        cout << "\nEmpty list can't delete";
+        cout << "\n-----------------------------------";
+    }
+    else if (h->next == NULL)
+    {
+        cout << "\n-----------------------------------";
+        cout << "\nDeleted last elemnt:" << h->data;
+        cout << "\n-----------------------------------";
+        *ah = NULL;
+    }
+    else
+    {
+        cout << "\n-----------------------------------";
+        cout << "\nDeleted: " << h->data;
+        cout << "\n-----------------------------------";
+        node *temp = h->next;
+        *ah = temp;
+    }
 }
 
 int main()
 {
     struct node *head = NULL, *temp;
-    int choice = 0, elem;
-    while (choice != 10)
+    int choice = -1, elem;
+    while (choice != 0)
     {
-        cout << "\n...................................";
-
-        cout << "\n1.SeeList\n2.Add element at end\n3.Add element at beginnig\n10.Quit\nEnter your choice: ";
+        cout << "\n\n...................................";
+        cout << "\n1.SeeList\n2.Add element at end\n3.Add element at beginnig";
+        cout << "\n4.Delete at end\n5.Delete at beginnig";
+        cout << "\n9.Size of list\n0.Quit\nEnter your choice: ";
 
         cin >> choice;
+
         switch (choice)
         {
         case 1:
@@ -109,12 +181,28 @@ int main()
         case 2:
             cout << "\nEnter the element: ";
             cin >> elem;
-            head = addElemAtEnd(head, elem);
+            head = addAtEnd(head, elem);
             break;
         case 3:
             cout << "\nEnter the element: ";
             cin >> elem;
             head = addAtBeginning(head, elem);
+            break;
+        case 4:
+            delAtend(head, &head);
+            break;
+        case 5:
+            delAtBeginnig(head, &head);
+            break;
+        case 9:
+            cout << "\n-----------------------------------\n";
+            cout << listSize(head) << " is the length of the list";
+            cout << "\n-----------------------------------";
+            break;
+        case 0:
+            cout << "\n-----------------------------------";
+            cout << "\n---------------Bye-----------------";
+            cout << "\n-----------------------------------\n";
             break;
 
         default:
