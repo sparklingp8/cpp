@@ -9,7 +9,7 @@ struct node
 
 void seeList(struct node *h)
 {
-    
+
     if (h == NULL)
     {
         cout << "\n-----------------------------------";
@@ -27,7 +27,7 @@ void seeList(struct node *h)
     }
     else
     {
-        struct node *temp=h;        
+        struct node *temp = h;
         cout << "\n-----------------------------------";
         cout << "\nList elemnts are: \n";
         while (temp->next != NULL)
@@ -47,17 +47,39 @@ struct node *createNode(int elem)
     newNode->data = elem;
     return newNode;
 }
+
+struct node *addAtBeginning(struct node *h, int elem)
+{
+    if (h == NULL)
+    {
+        h = createNode(elem);
+        cout << "\n-----------------------------------";
+        cout << elem << "\nElement added to list";
+        cout << "\n-----------------------------------";
+        return h;
+    }
+    else
+    {
+        struct node *temp = createNode(elem);
+        temp->next = h;
+        h = temp;
+        cout << "\n-----------------------------------";
+        cout << elem << "\nElement added to list";
+        cout << "\n-----------------------------------";
+        return h;
+    }
+}
+
 struct node *addElemAtEnd(struct node *h, int elm)
 {
     struct node *temp = h;
     if (h == NULL)
     {
         h = createNode(elm);
-        
     }
     else
     {
-       
+
         while (temp->next != NULL)
         {
             temp = temp->next;
@@ -76,7 +98,7 @@ int main()
     {
         cout << "\n...................................";
 
-        cout << "\n1.SeeList\n2.Add element at end\n10.Quit\nEnter your choice: ";
+        cout << "\n1.SeeList\n2.Add element at end\n3.Add element at beginnig\n10.Quit\nEnter your choice: ";
 
         cin >> choice;
         switch (choice)
@@ -88,8 +110,17 @@ int main()
             cout << "\nEnter the element: ";
             cin >> elem;
             head = addElemAtEnd(head, elem);
+            break;
+        case 3:
+            cout << "\nEnter the element: ";
+            cin >> elem;
+            head = addAtBeginning(head, elem);
+            break;
 
         default:
+            cout << "\n-----------------------------------";
+            cout << "\n---------Wrong choice--------------";
+            cout << "\n-----------------------------------";
             break;
         }
     }
