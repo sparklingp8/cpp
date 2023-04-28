@@ -117,7 +117,7 @@ void delAtend(node *h, node **ah) // double pointer be carefull
         cout << "\n-----------------------------------";
         cout << "\nDeleted last elemnt of list: " << h->data;
         cout << "\n-----------------------------------";
-        *ah = NULL;        
+        *ah = NULL;
     }
     else
     {
@@ -160,15 +160,33 @@ void delAtBeginnig(node *h, node **ah)
     }
 }
 
+void delAtnPlce(node *h, node **ah, int plc)
+{
+    node *temp1 = h;
+    int i = 0;
+    node *temp2;
+    for (i = 0; i < plc - 1; i++)
+    {
+        temp2 = temp1;
+        temp1 = temp1->next;
+    }
+
+    temp2->next = temp1->next;
+    cout << "\n-----------------------------------\n";
+    cout << temp1->data << " is rmeoved from list";
+    cout << "\n-----------------------------------";
+}
+
 int main()
 {
     struct node *head = NULL, *temp;
-    int choice = -1, elem;
+    int choice = -1, elem, plce, Lsize;
     while (choice != 0)
     {
         cout << "\n\n...................................";
         cout << "\n1.SeeList\n2.Add element at end\n3.Add element at beginnig";
         cout << "\n4.Delete at end\n5.Delete at beginnig";
+        cout << "\n6.Add at nth place\n7.Delete at nth place";
         cout << "\n9.Size of list\n0.Quit\nEnter your choice: ";
 
         cin >> choice;
@@ -193,6 +211,40 @@ int main()
             break;
         case 5:
             delAtBeginnig(head, &head);
+            break;
+        case 7:
+            Lsize = listSize(head);
+            if (Lsize == 0)
+            {
+                cout << "\n-----------------------------------\n";
+                cout << "List is empty";
+                cout << "\n-----------------------------------";
+                break;
+            }
+            cout << "Enter the place: ";
+            cin >> plce;
+            if (plce > Lsize)
+            {
+                cout << "\n-----------------------------------\n";
+                cout << plce << " is out of bound bcz size is " << Lsize;
+                cout << "\n-----------------------------------";
+            }
+            else
+            {
+                if (plce == 1)
+                {
+                    delAtBeginnig(head, &head);
+                }
+                else if (plce == Lsize)
+                {
+                    delAtend(head, &head);
+                }
+                else
+                {
+                    delAtnPlce(head, &head, plce);
+                }
+            }
+
             break;
         case 9:
             cout << "\n-----------------------------------\n";
