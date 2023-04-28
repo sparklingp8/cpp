@@ -87,8 +87,8 @@ struct node *addAtBeginning(struct node *h, int elem)
     if (h == NULL)
     {
         h = createNode(elem);
-        cout << "\n-----------------------------------";
-        cout << elem << "\nElement added to list";
+        cout << "\n----------------------------------\n";
+        cout << elem << " added to list";
         cout << "\n-----------------------------------";
         return h;
     }
@@ -97,8 +97,8 @@ struct node *addAtBeginning(struct node *h, int elem)
         struct node *temp = createNode(elem);
         temp->next = h;
         h = temp;
-        cout << "\n-----------------------------------";
-        cout << elem << "\nElement added to list";
+        cout << "\n-----------------------------------\n";
+        cout << elem << " added to list";
         cout << "\n-----------------------------------";
         return h;
     }
@@ -173,10 +173,23 @@ void delAtnPlce(node *h, node **ah, int plc)
 
     temp2->next = temp1->next;
     cout << "\n-----------------------------------\n";
-    cout << temp1->data << " is rmeoved from list";
+    cout << temp1->data << " is removed from list";
     cout << "\n-----------------------------------";
 }
 
+node *addAtntPlce(node *h, int elm, int plc)
+{
+    node *tmp1, *tmp2;
+    tmp1 = h;
+
+    for (int i = 1; i < plc; i++)
+    {
+        tmp2 = tmp1;
+        tmp1 = tmp1->next;
+    }
+    tmp2->next = addAtBeginning(tmp1, elm); //heavy logic understand carefully
+    return h;
+}
 int main()
 {
     struct node *head = NULL, *temp;
@@ -212,6 +225,38 @@ int main()
         case 5:
             delAtBeginnig(head, &head);
             break;
+        case 6:
+            Lsize = listSize(head);
+            cout << "Enter the place: ";
+            cin >> plce;
+            if (plce == 1)
+            {
+                cout << "\nEnter the element: ";
+                cin >> elem;
+                head = addAtBeginning(head, elem);
+                break;
+            }
+            else if (plce == Lsize + 1)
+            {
+                cout << "\nEnter the element: ";
+                cin >> elem;
+                head = addAtEnd(head, elem);
+                break;
+            }
+            else if (plce > Lsize || plce < 1)
+            {
+                cout << "\n-----------------------------------\n";
+                cout << plce << " is out of bound bcz size is " << Lsize;
+                cout << "\n-----------------------------------";
+                break;
+            }
+            else
+            {
+                cout << "\nEnter the element: ";
+                cin >> elem;
+                head = addAtntPlce(head, elem, plce);
+                break;
+            }
         case 7:
             Lsize = listSize(head);
             if (Lsize == 0)
