@@ -1,6 +1,6 @@
 #include <iostream>
-using namespace std;
 
+using namespace std;
 struct node
 {
     int data;
@@ -187,9 +187,46 @@ node *addAtntPlce(node *h, int elm, int plc)
         tmp2 = tmp1;
         tmp1 = tmp1->next;
     }
-    tmp2->next = addAtBeginning(tmp1, elm); //heavy logic understand carefully
+    tmp2->next = addAtBeginning(tmp1, elm); // heavy logic understand carefully
     return h;
 }
+
+node *revList(node *h)
+{
+    node *prev, *cur, *nxt = NULL;
+
+    prev = h;
+    cur = prev->next;
+    if (listSize(h) > 2)
+    {
+        nxt = cur->next;
+        prev->next = NULL;
+        while (nxt->next != NULL)
+        {
+            prev = cur;
+            cur = nxt;
+            nxt = nxt->next;
+        }
+        nxt->next = cur;
+        cur->next = prev;
+        h = nxt;
+    }
+    else
+    {
+        prev->next = NULL;
+        cur->next = prev;
+        h = cur;
+        cout << "hsere" << prev;
+    }
+
+    cout << "\n-----------------------------------\n";
+    cout << " List reversed  ";
+    cout << "\n-----------------------------------";
+    seeList(h);
+
+    return h;
+}
+
 int main()
 {
     struct node *head = NULL, *temp;
@@ -200,6 +237,7 @@ int main()
         cout << "\n1.SeeList\n2.Add element at end\n3.Add element at beginnig";
         cout << "\n4.Delete at end\n5.Delete at beginnig";
         cout << "\n6.Add at nth place\n7.Delete at nth place";
+        cout << "\n8.Reverse a list";
         cout << "\n9.Size of list\n0.Quit\nEnter your choice: ";
 
         cin >> choice;
@@ -289,8 +327,30 @@ int main()
                     delAtnPlce(head, &head, plce);
                 }
             }
-
             break;
+
+        case 8:
+            Lsize = listSize(head);
+            if (Lsize == 0)
+            {
+                cout << "\n-----------------------------------\n";
+                cout << "List is empty";
+                cout << "\n-----------------------------------";
+                break;
+            }
+            else if (Lsize == 1)
+            {
+                cout << "\n-----------------------------------\n";
+                cout << "List has only one element";
+                cout << "\n-----------------------------------";
+                break;
+            }
+            else
+            {
+                head = revList(head);
+                break;
+            }
+
         case 9:
             cout << "\n-----------------------------------\n";
             cout << listSize(head) << " is the length of the list";
