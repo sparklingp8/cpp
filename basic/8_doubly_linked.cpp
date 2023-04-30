@@ -118,9 +118,9 @@ void addAtNthPlce(dnode *h, int elm, int plc)
     cout << "\n---------------------------";
 }
 
-void revList(dnode *h)
+dnode *revList(dnode *h)
 {
-    dnode *tmp = h;
+    dnode *tmp = h, *tmp2, *x, *y;
     if (h == NULL)
     {
         cout << "\n---------------------------";
@@ -130,19 +130,32 @@ void revList(dnode *h)
     else
     {
         cout << "\n---------------------------\n";
-        cout << "Reverse List element are:\n";
+        cout << " List is Reversed  \n";
         while (h->next != NULL)
         {
             h = h->next;
         }
-        while (h->prev != NULL)
+
+        tmp = h;
+        tmp2 = h;
+        while (tmp->prev != NULL)
         {
-            cout << h->data << endl;
-            h = h->prev;
+
+            x = tmp->prev;
+            y = tmp->next;
+            tmp->next = x;
+            tmp->prev = y;
+            tmp = x;
         }
-        cout << h->data << endl;
+
+        x = tmp->prev;
+        y = tmp->next;
+        tmp->next = x;
+        tmp->prev = y;
+
         cout << "---------------------------";
     }
+    return tmp2;
 }
 
 int main()
@@ -206,7 +219,7 @@ int main()
                 }
             }
         case 8:
-            revList(head);
+            head = revList(head);
             break;
         case 9:
             cout << "\n---------------------------";
