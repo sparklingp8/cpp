@@ -158,6 +158,51 @@ dnode *revList(dnode *h)
     return tmp2;
 }
 
+dnode *delAtEnd(dnode *h, int lsiz)
+{
+    dnode *temp = h;
+    if (lsiz == 2)
+    {
+        h->next = NULL;
+        return h;
+    }
+    else if (lsiz == 1)
+    {
+        cout << "\n---------------------------\n";
+        cout << h->data << " last element deleted";
+        cout << "\n---------------------------";
+        h = NULL;
+        return h;
+    }
+    else
+    {
+        while (temp->next->next != NULL)
+        {
+            temp = temp->next;
+        }
+        cout << "\n---------------------------\n";
+        cout << temp->next->data << " deleted from list";
+        cout << "\n---------------------------";
+        temp->next = NULL;
+        return h;
+    }
+}
+
+dnode *delAtNthPlce(dnode *h, int plc)
+{
+    dnode *t = h;
+    for (int i = 1; i < plc; i++)
+    {
+        t = t->next;
+    }
+    cout << "\n---------------------------\n";
+    cout << t->data << " deleted from the list";
+    cout << "\n---------------------------";
+    t->prev->next = t->next;
+    t->next->prev = t->prev;
+    return h;
+}
+
 int main()
 {
 
@@ -169,6 +214,7 @@ int main()
         seeList(head);
         cout << "\n............................\n";
         cout << "1.See List\n2.Add At End\n3.Add At Begin\n4.Add at nth place";
+        cout << "\n5.Delete At End\n6.Delete From Beginni\n7.Delete At nth place";
         cout << "\n8.Reverse list\n9.List Size\n0.Quit";
         cout << "\nEnter your choice: ";
         cin >> choice;
@@ -218,9 +264,127 @@ int main()
                     break;
                 }
             }
+        case 5:
+
+            if (head == NULL)
+            {
+                cout << "\n---------------------------";
+                cout << "\nCant delete list is empty";
+                cout << "\n---------------------------";
+
+                break;
+            }
+            else
+            {
+                lsize = listSize(head);
+                head = delAtEnd(head, lsize);
+                break;
+            }
+        case 6:
+            if (head == NULL)
+            {
+                cout << "\n---------------------------";
+                cout << "\nCant delete list is empty";
+                cout << "\n---------------------------";
+                break;
+            }
+            else if (head->next == NULL)
+            {
+                cout << "\n---------------------------\n";
+                cout << head->data << " last element deleted";
+                cout << "\n---------------------------";
+                head = NULL;
+                break;
+            }
+            else if (head->next->next == NULL)
+            {
+                cout << "\n---------------------------\n";
+                cout << head->data << " deleted from list";
+                cout << "\n---------------------------";
+                head = head->next;
+                break;
+            }
+            else
+            {
+                cout << "\n---------------------------\n";
+                cout << head->data << " deleted from list";
+                cout << "\n---------------------------";
+                ((head->next)->next)->prev = head->next;
+                head = head->next;
+                break;
+            }
+        case 7:
+
+            if (head == NULL)
+            {
+                cout << "\n---------------------------";
+                cout << "\nCant delete list is empty";
+                cout << "\n---------------------------";
+                break;
+            }
+            cout << "\nEnter the place : ";
+            cin >> plce;
+            lsize = listSize(head);
+            if (plce > lsize || plce < 0)
+            {
+                cout << "\n---------------------------\n";
+                cout << plce << " cannot deleted from list size " << lsize;
+                cout << "\n---------------------------";
+                break;
+            }
+            if (plce == 1 or plce == 0)
+            {
+                if (head->next == NULL)
+                {
+                    cout << "\n---------------------------\n";
+                    cout << head->data << " last element deleted";
+                    cout << "\n---------------------------";
+                    head = NULL;
+                    break;
+                }
+                else if (head->next->next == NULL)
+                {
+                    cout << "\n---------------------------\n";
+                    cout << head->data << " deleted from list";
+                    cout << "\n---------------------------";
+                    head = head->next;
+                    break;
+                }
+                else
+                {
+                    cout << "\n---------------------------\n";
+                    cout << head->data << " deleted from list";
+                    cout << "\n---------------------------";
+                    ((head->next)->next)->prev = head->next;
+                    head = head->next;
+                    break;
+                }
+            }
+            else if (plce == lsize)
+            {
+                lsize = listSize(head);
+                head = delAtEnd(head, lsize);
+                break;
+            }
+            else
+            {
+                head = delAtNthPlce(head, plce);
+                break;
+            }
+
         case 8:
-            head = revList(head);
-            break;
+            if (head == NULL)
+            {
+                cout << "\n---------------------------";
+                cout << "\nCant reverse empty list";
+                cout << "\n---------------------------";
+                break;
+            }
+            else
+            {
+                head = revList(head);
+                break;
+            }
         case 9:
             cout << "\n---------------------------";
             cout << "\nList size is: " << listSize(head);
