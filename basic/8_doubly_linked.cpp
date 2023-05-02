@@ -296,20 +296,12 @@ int main()
                 head = NULL;
                 break;
             }
-            else if (head->next->next == NULL)
-            {
-                cout << "\n---------------------------\n";
-                cout << head->data << " deleted from list";
-                cout << "\n---------------------------";
-                head = head->next;
-                break;
-            }
             else
             {
                 cout << "\n---------------------------\n";
                 cout << head->data << " deleted from list";
                 cout << "\n---------------------------";
-                ((head->next)->next)->prev = head->next;
+                (head->next)->prev = NULL;
                 head = head->next;
                 break;
             }
