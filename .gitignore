@@ -1,5 +1,5 @@
 # Ignore files with extension `.exe` 
 .vscode
-basic/00_practice
-basic/00_practice.cpp
+basic/0__practice
+basic/0__practice.cpp
 basic/a.out

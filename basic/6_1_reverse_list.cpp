@@ -1,3 +1,4 @@
+//reverse a list code 
 node *revList(node *h)
 {
     node *prev, *cur, *nxt = NULL;
