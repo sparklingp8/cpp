@@ -1,17 +1,13 @@
 /*
-Steps to convert infix to post fix:
-
-1. If incoming is operand  ==> print it
-2. If incoming is '('      ==> Push it
-3. If incoming is ')' ==> Pop all till you get '('
-4. If incoming is opperand => stack == Empty or top == '('  ==> Push operator
-5. If incoming is opperand => incoming is higher precdency  ==> Push operator
-6. If incoming is opperand => incoming is lower precdency   ==> Pop top operator & check with new top
-7. If incoming is opperand => incoming is same precdency (L-R)   ==> Pop top operator & check with new top
-8. If incoming is opperand => incoming is same precdency (R-L)(^..operator)   ==> Push oerator
-
+Steps to convert post to infix:
+style: <operand> <operand> <<operator>>
+ex: abc*+def^/-
+1. start from R -> L
+2. If incoming is opperand  ==> Push it
+3. If incoming is operator  => Pop 2 elements ==> B=pop 1, A= pop 2 ===> push (A<operaotr>B)
 */
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -20,6 +16,20 @@ struct node
     char data;
     node *next;
 };
+
+struct snode
+{
+    string data;
+    snode *next;
+};
+
+snode *screateNode(string s)
+{
+    snode *newNode = (snode *)malloc(sizeof(snode));
+    newNode->data = s;
+    newNode->next = NULL;
+    return newNode;
+}
 
 node *createNode(char chr)
 {
@@ -34,6 +44,18 @@ char Peek(node *h)
     if (h == NULL)
     {
         return '\0';
+    }
+    else
+    {
+
+        return h->data;
+    }
+}
+string sPeek(snode *h)
+{
+    if (h == NULL)
+    {
+        return "\0";
     }
     else
     {
@@ -56,6 +78,46 @@ node *Push(node *h, char c)
         tmp = createNode(c);
         tmp->next = h;
         h = tmp;
+        return h;
+    }
+}
+
+snode *sPush(snode *h, string s)
+{
+
+    if (h == NULL)
+    {
+        h = screateNode(s);
+        return h;
+    }
+    else
+    {
+        snode *tmp;
+        tmp = screateNode(s);
+        tmp->next = h;
+        h = tmp;
+        return h;
+    }
+}
+
+snode *sPop(snode *h)
+{
+    if (h == NULL)
+    {
+
+        return NULL;
+    }
+    else if (h->next == NULL)
+    {
+
+        h = NULL;
+        return h;
+    }
+    else
+    {
+
+        h = h->next;
+
         return h;
     }
 }
@@ -198,8 +260,11 @@ void infixToPostfix()
     ctop = Peek(stack);
     while (ctop != '\0')
     {
-        pexp[j] = ctop;
-        j++;
+        if (ctop != '(' && ctop != ')')
+        {
+            pexp[j] = ctop;
+            j++;
+        }
         stack = Pop(stack);
         ctop = Peek(stack);
     }
@@ -209,6 +274,51 @@ void infixToPostfix()
     cout << "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 }
 
+void postfixToInfix()
+{
+    cin.get();
+    char exp[80], pexp[80];
+    cout << "\nEnter expression: ";
+    cin.get(pexp, 80);
+    snode *stack = NULL;
+    char ctop;
+    string str, sinfix;
+    int i = 0, j = 0;
+    while (pexp[i] != '\0')
+    {
+        if (pexp[i] != '+' && pexp[i] != '-' && pexp[i] != '*' && pexp[i] != '/' && pexp[i] != '^')
+        {
+            str = "";
+            str += pexp[i];
+            stack = sPush(stack, str);
+            i++;
+        }
+        else
+        {
+            string A, B;
+            str = "(";
+            B = sPeek(stack);
+            stack = sPop(stack);
+            A = sPeek(stack);
+            stack = sPop(stack);
+            str += A + pexp[i] + B + ")";
+            stack = sPush(stack, str);
+            i++;
+        }
+    }
+
+    string A, B;
+    str = "";
+    B = sPeek(stack);
+    stack = sPop(stack);
+    A = sPeek(stack);
+    stack = sPop(stack);
+    str += A + pexp[i] + B;
+    stack = sPush(stack, str);
+    cout << "\n````````````````````````";
+    cout << "\nInfix Expression: " << sPeek(stack);
+    cout << "\n````````````````````````";
+}
 int main()
 {
     node *head = NULL;
@@ -218,7 +328,7 @@ int main()
     while (choice != 9)
     {
         cout << "\n.............................";
-        cout << "\n1.Infix to Postfix\n9.Quit";
+        cout << "\n1.Infix to Postfix\n2.Postfix to Infix\n9.Quit";
         cout << "\nEnter choice: ";
 
         cin >> choice;
@@ -226,6 +336,10 @@ int main()
         {
         case 1:
             infixToPostfix();
+            cin.get();
+            break;
+        case 2:
+            postfixToInfix();
             cin.get();
             break;
         case 9:
