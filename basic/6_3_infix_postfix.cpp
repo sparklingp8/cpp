@@ -1,5 +1,20 @@
+/*
+Steps to convert infix to post fix:
+
+1. If incoming is operand  ==> print it
+2. If incoming is '('      ==> Push it
+3. If incoming is ')' ==> Pop all till you get '('
+4. If incoming is opperand => stack == Empty or top == '('  ==> Push operator
+5. If incoming is opperand => incoming is higher precdency  ==> Push operator
+6. If incoming is opperand => incoming is lower precdency   ==> Pop top operator & check with new top
+7. If incoming is opperand => incoming is same precdency (L-R)   ==> Pop top operator & check with new top
+8. If incoming is opperand => incoming is same precdency (R-L)(^..operator)   ==> Push oerator
+
+*/
 #include <iostream>
+
 using namespace std;
+
 struct node
 {
     char data;
@@ -14,19 +29,16 @@ node *createNode(char chr)
     return newNode;
 }
 
-void Peek(node *h)
+char Peek(node *h)
 {
     if (h == NULL)
     {
-        cout << "\n-----------------------------";
-        cout << "\n        Stack is Empty";
-        cout << "\n-----------------------------";
+        return '\0';
     }
     else
     {
-        cout << "\n-----------------------------";
-        cout << "\nStack Top Element is: " << h->data;
-        cout << "\n-----------------------------";
+
+        return h->data;
     }
 }
 
@@ -52,47 +64,22 @@ node *Pop(node *h)
 {
     if (h == NULL)
     {
-        cout << "\n-----------------------------";
-        cout << "\n        Stack is Empty";
-        cout << "\n-----------------------------";
+
         return NULL;
     }
     else if (h->next == NULL)
     {
-        cout << "\n-----------------------------";
-        cout << "\nPoped Last element: " << h->data;
-        cout << "\n-----------------------------";
+
         h = NULL;
         return h;
     }
     else
     {
-        cout << "\n-----------------------------";
-        cout << "\nPoped element is:  " << h->data;
+
         h = h->next;
-        cout << "\n-----------------------------";
+
         return h;
     }
-}
-
-node *converToList(node *h)
-{
-    cin.get(); // Important to flush out cache
-               // cin.clear();
-    char exp[80];
-    cout << "\nEnter expression: ";
-    cin.get(exp, 80);
-    int i = 0;
-    while ((int)exp[i] != 0)
-    {
-        h = Push(h, exp[i]);
-        i++;
-    }
-    cout << "\n-----------------------------";
-    cout << "\n     Pushed Expression To List";
-    cout << "\n-----------------------------";
-
-    return h;
 }
 
 void seeList(node *h)
@@ -117,6 +104,111 @@ void seeList(node *h)
     }
 }
 
+void infixToPostfix()
+{
+    cin.get(); // Important to flush out cache
+               // cin.clear();
+    char exp[80], pexp[80];
+    cout << "\nEnter expression: ";
+    cin.get(exp, 80);
+    node *stack = NULL;
+    char ctop;
+    int i = 0, j = 0;
+
+    while (exp[i] != '\0')
+    {
+        if (exp[i] != '+' && exp[i] != '-' && exp[i] != '*' && exp[i] != '/' && exp[i] != '^' && exp[i] != '(' && exp[i] != ')')
+        {
+            pexp[j] = exp[i];
+            i++;
+            j++;
+        }
+        else
+        {
+            ctop = Peek(stack);
+
+            if (ctop == '\0' || ctop == '(' || exp[i] == '(')
+            {
+                stack = Push(stack, exp[i]);
+                i++;
+            }
+            else if (exp[i] == '^')
+            {
+                if (ctop == '^')
+                {
+                    pexp[j] = ctop;
+                    j++;
+                    stack = Pop(stack);
+                }
+                else
+                {
+                    stack = Push(stack, exp[i]);
+                    i++;
+                }
+            }
+            else if (exp[i] == ')')
+            {
+                while (ctop != '(')
+                {
+                    pexp[j] = ctop;
+                    j++;
+                    stack = Pop(stack);
+                    ctop = Peek(stack);
+                }
+                stack = Pop(stack);
+                i++;
+            }
+            else if (exp[i] == '*' or exp[i] == '/')
+            {
+                if (ctop == '+' || ctop == '-')
+                {
+                    stack = Push(stack, exp[i]);
+                    i++;
+                }
+                else if (ctop != '^')
+                {
+                    pexp[j] = ctop;
+                    j++;
+                    stack = Pop(stack);
+                }
+                else if (ctop == '^')
+                {
+                    pexp[j] = ctop;
+                    j++;
+                    stack = Pop(stack);
+                }
+            }
+            else if (exp[i] == '+' or exp[i] == '-')
+            {
+                if (ctop == '+' || ctop == '-')
+                {
+                    pexp[j] = ctop;
+                    j++;
+                    stack = Pop(stack);
+                }
+                else if (ctop == '*' || ctop == '/' || ctop == '^')
+                {
+                    pexp[j] = ctop;
+                    j++;
+                    stack = Pop(stack);
+                }
+            }
+        }
+    }
+    ctop = Peek(stack);
+    while (ctop != '\0')
+    {
+        pexp[j] = ctop;
+        j++;
+        stack = Pop(stack);
+        ctop = Peek(stack);
+    }
+    pexp[j] = '\0';
+    cout << "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+    cout << "\nPostfix Expression is: " << pexp;
+    cout << "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+}
+
 int main()
 {
     node *head = NULL;
@@ -126,30 +218,15 @@ int main()
     while (choice != 9)
     {
         cout << "\n.............................";
-        cout << "\n1.Peek\n2.Push\n3.Pop\n4.Push Expression\n0.SeeList\n9.Quit";
+        cout << "\n1.Infix to Postfix\n9.Quit";
         cout << "\nEnter choice: ";
+
         cin >> choice;
         switch (choice)
         {
         case 1:
-            Peek(head);
-            break;
-        case 2:
-            char c;
-            cout << "\n-----------------------------";
-            cout << "\nEnter the char: ";
-            cin >> c;
-            head = Push(head, c);
-            break;
-        case 3:
-            head = Pop(head);
-            break;
-        case 4:
-            head = converToList(head);
-            break;
-
-        case 0:
-            seeList(head);
+            infixToPostfix();
+            cin.get();
             break;
         case 9:
             cout << "\n-----------------------------";
