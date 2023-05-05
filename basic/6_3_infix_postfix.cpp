@@ -1,4 +1,18 @@
 /*
+Steps to convert infix to post fix:
+1. If incoming is operand  ==> print it
+2. If incoming is '('      ==> Push it
+3. If incoming is ')' ==> Pop all till you get '('
+4. If incoming is opperand => stack == Empty or top == '('  ==> Push operator
+5. If incoming is opperand => incoming is higher precdency  ==> Push operator
+6. If incoming is opperand => incoming is lower precdency   ==> Pop top operator & check with new top
+7. If incoming is opperand => incoming is same precdency (L-R)   ==> Pop top operator & check with new top
+8. If incoming is opperand => incoming is same precdency (R-L)(^..operator)   ==> Push oerator
+*/
+
+//--------------------------------------------------------------------------------------------------
+
+/*
 Steps to convert post to infix:
 style: <operand> <operand> <<operator>>
 ex: abc*+def^/-
