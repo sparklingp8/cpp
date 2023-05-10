@@ -1,7 +1,4 @@
 # Ignore files with extension `.exe` 
 .vscode
-basic/0__practice.cpp
-trees/0__practice.cpp
-basic/a.out
-trees/a.out
-
+*a.out
+*practice*
