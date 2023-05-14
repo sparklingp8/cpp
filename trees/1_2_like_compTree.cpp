@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-//acts like complete tree but not
+// acts like complete tree but not
 struct tree
 {
     int data;
@@ -18,26 +18,22 @@ tree *createNode(int dat)
 
 void comTree(tree *rt, tree *nwnod)
 {
-
-    if (rt->left == NULL)
+    while (true)
     {
-        rt->left = nwnod;
-        return;
-    }
-    if (rt->right == NULL)
-    {
-        rt->right = nwnod;
-        return;
-    }
-    if (rt->left != NULL && rt->right != NULL)
-    {
-        comTree(rt->right, nwnod);
-        return;
-    }
-    else
-    {
-        comTree(rt->left, nwnod);
-        return;
+        if (rt->left == NULL)
+        {
+            rt->left = nwnod;
+            return;
+        }
+        else if (rt->right == NULL)
+        {
+            rt->right = nwnod;
+            return;
+        }
+        else
+        {
+            rt = rt->left;
+        }
     }
 }
 
