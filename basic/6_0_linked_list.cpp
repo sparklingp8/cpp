@@ -215,8 +215,7 @@ node *revList(node *h)
     {
         prev->next = NULL;
         cur->next = prev;
-        h = cur;
-        cout << "hsere" << prev;
+        h = cur;       
     }
 
     cout << "\n-----------------------------------\n";
