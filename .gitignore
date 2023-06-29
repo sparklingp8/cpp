@@ -1,4 +1,3 @@
-# Ignore files with extension `.exe` 
 .vscode
 *a.out
 *practice*
