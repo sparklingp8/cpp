@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-
+//all circular queue function implementation in C++
 #define SIZE 5
 
 struct circQtmplt
