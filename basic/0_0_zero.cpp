@@ -1,4 +1,4 @@
-//zeeorth first code
+//zeroth c++ code to start it all 
 #include<iostream>
 using namespace std;
 int main(){
