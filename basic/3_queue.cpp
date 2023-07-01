@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-
+//all queue functions implementation in C++
 #define SIZE 5
 
 struct quetmplt
