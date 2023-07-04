@@ -1,6 +1,5 @@
 // pointer in structure
 #include <iostream>
-#include <string>
 using namespace std;
 int main()
 {
@@ -15,6 +14,6 @@ int main()
    s1.roll = 12;
    s1.name = "check";
    cout << s1.name << s1.roll << &s1 << &s2 << endl;
-   s2->name = "check 2"; // impoertant
+   s2->name = "check 2"; // important
    cout << s1.name << s1.roll << &s1 << &s2 << endl;
 }

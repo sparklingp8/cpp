@@ -1,5 +1,5 @@
 #include <iostream>
-// code to print till nth Fibonacci number using recursion in c++
+// code to print till nth Fibonacci number using recursion in c++ {way 2 }
 using namespace std;
 
 long fibo(long n)
