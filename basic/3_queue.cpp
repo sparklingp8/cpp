@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-//all queue functions implementation in C++
+// all queue functions implementation in C++
 #define SIZE 5
 
 struct quetmplt
@@ -106,7 +106,7 @@ int main()
 
     while (choice != 9)
     {
-        cout << "\n....................... " ;
+        cout << "\n....................... ";
         cout << "\n1.Enqueue\n2.Dequeu\n3.Peek\n4.SeeFullQ\n9.Quit";
         cout << "\nEnter the choice: ";
         cin >> choice;

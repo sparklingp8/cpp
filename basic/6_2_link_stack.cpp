@@ -104,7 +104,7 @@ int main()
 {
     node *head = NULL;
 
-    int choice = 0, elem, size; 
+    int choice = 0, elem, size;
     while (choice != 9)
     {
         cout << "\n.............................";

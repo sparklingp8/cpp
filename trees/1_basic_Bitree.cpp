@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-//code to add nodes at left or right of the tree
+// code to add nodes at left or right of the tree
 struct tree
 {
     int data;

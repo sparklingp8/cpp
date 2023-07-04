@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-//all double-ended circular queue function implementation in C++
+// all double-ended circular queue function implementation in C++
 #define SIZE 5
 
 struct circQtmplt

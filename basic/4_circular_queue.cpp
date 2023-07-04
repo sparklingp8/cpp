@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-//all circular queue function implementation in C++
+// all circular queue function implementation in C++
 #define SIZE 5
 
 struct circQtmplt
@@ -118,11 +118,11 @@ int main()
 
     while (choice != 5)
     {
-        cout << "\n\n.........................................." ;
+        cout << "\n\n..........................................";
         cout << "\n1.EnQueue\n2.DeQueue\n3.peek\n4.seeAll\n5.quit";
         cout << "\nEnter your choice: ";
         cin >> choice;
-        
+
         switch (choice)
         {
         case 1:

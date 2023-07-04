@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-//strings code
+// strings code
 int main()
 {
     char c[5];

@@ -1,5 +1,5 @@
 #include <iostream>
-//factorial function using recursion 
+// factorial function using recursion
 using namespace std;
 
 int factorial(long n)

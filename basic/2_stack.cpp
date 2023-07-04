@@ -1,5 +1,5 @@
 #include <iostream>
-//all stack functions implementation in C++
+// all stack functions implementation in C++
 using namespace std;
 #define MAX 10
 

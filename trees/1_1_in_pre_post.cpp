@@ -56,7 +56,7 @@ int main()
     {
         cout << "\n------------------------------------";
         cout << "\n.1Preorder traversal\n2.Inorder traversal\n3.Postorder traversal.";
-        cout<<"\nEnter option: ";
+        cout << "\nEnter option: ";
         cin >> choice;
         switch (choice)
         {
