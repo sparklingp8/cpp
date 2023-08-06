@@ -44,7 +44,7 @@ void enque(quetmplt *q, int elm)
 
 void deque(quetmplt *q)
 {
-    if (q->front + 1 == q->rare + 1)
+    if (q->front == q->rare )
     {
         cout << "\n-------------------------";
         cout << endl
