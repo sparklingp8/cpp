@@ -1,25 +1,20 @@
 #include <iostream>
-// code to print till nth Fibonacci number using recursion in c++ {way 2 }
+
 using namespace std;
-
-long fibo(long n)
+// code to print till nth Fibonacci number using recursion in c++ 
+int fib(int n)
 {
-
-    if (n <= 1)
+    if (n <= 0)
+        return 0;
+    else if (n == 1)
         return 1;
     else
-        return fibo(n - 1) + fibo(n - 2);
+        return fib(n - 1) + fib(n - 2);
 }
-
 int main()
 {
-    long f;
-    cout << "Enter which fibbonaci number you want: ";
-    cin >> f;
-    cout << "\nseries: ";
+    int f = 10;
     for (int i = 0; i < f; i++)
-    {
-        cout << fibo(i) << ", ";
-    }
+        cout << fib(i) << ", ";
     return 0;
 }
