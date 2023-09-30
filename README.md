@@ -1,6 +1,6 @@
 # cpp
 ### Most fundamental codes in cpp one should know.
 
-To indent code is VS code:
-    ubuntu: ctr+shit+i  
-    windows: shift+alt+f
+To indent code is VS code:     
+1. ubuntu: ctrl+shit+i    
+2. windows: shift+alt+f
